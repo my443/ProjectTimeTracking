@@ -21,11 +21,18 @@ namespace ProjectTimeTracking.UserControls
     /// </summary>
     public partial class TimeEntryGrid : UserControl
     {
+        TimeEntryViewModel timeEntryViewModel;
         public TimeEntryGrid()
         {
             InitializeComponent();
-            TimeEntryViewModel timeEntries = new TimeEntryViewModel();
-            TimeEntriesDataGrid.ItemsSource = timeEntries.TimeEntries;
+            timeEntryViewModel = new TimeEntryViewModel();
+            TimeEntriesDataGrid.ItemsSource = timeEntryViewModel.TimeEntries;
+        }
+
+        private void TimeEntriesDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.Items.CurrentItem;
+            MessageBox.Show($"{currentRowIndex.Description}");
         }
     }
 }

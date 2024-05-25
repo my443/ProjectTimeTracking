@@ -12,7 +12,6 @@ namespace ProjectTimeTracking
         public MainWindow()
         {
             InitializeComponent();
-
         }
     }
 }
