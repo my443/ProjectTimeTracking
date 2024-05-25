@@ -12,8 +12,7 @@ namespace ProjectTimeTracking
         public MainWindow()
         {
             InitializeComponent();
-            TimeEntryViewModel timeEntries = new TimeEntryViewModel();
-            TimeEntriesDataGrid.ItemsSource = timeEntries.TimeEntries;
+
         }
     }
 }
