@@ -31,8 +31,16 @@ namespace ProjectTimeTracking.UserControls
 
         private void TimeEntriesDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.Items.CurrentItem;
-            MessageBox.Show($"{currentRowIndex.Description}");
+            if (e.EditAction == DataGridEditAction.Commit) { 
+                Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.SelectedItem;
+                MessageBox.Show($"{currentRowIndex.Description}");
+            }
+        }
+
+        private void TimeEntriesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.SelectedItem;
+            //MessageBox.Show($"{currentRowIndex.Description}");
         }
     }
 }

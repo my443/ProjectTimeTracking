@@ -19,10 +19,10 @@ namespace ProjectTimeTracking.ViewModels
         public void loadData()
         {
             List<TimeEntry> timeEntries = db.TimeEntries.ToList();
-            foreach (var timeEntry in timeEntries)
-            {
-                Console.WriteLine(timeEntry.ShortTitle);
-            }
+            //foreach (var timeEntry in timeEntries)
+            //{
+            //    Console.WriteLine(timeEntry.ShortTitle);
+            //}
             TimeEntries = new ObservableCollection<TimeEntry>(timeEntries);
         }
     }
