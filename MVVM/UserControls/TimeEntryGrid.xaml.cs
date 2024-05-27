@@ -1,4 +1,5 @@
-﻿using ProjectTimeTracking.ViewModels;
+﻿using ProjectTimeTracking.Models;
+using ProjectTimeTracking.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,16 +32,33 @@ namespace ProjectTimeTracking.UserControls
 
         private void TimeEntriesDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            if (e.EditAction == DataGridEditAction.Commit) { 
-                Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.SelectedItem;
-                MessageBox.Show($"{currentRowIndex.Description}");
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                // Force update to ensure property change notification
+                var binding = e.EditingElement.GetBindingExpression(TextBox.TextProperty);
+                if (binding != null)
+                {
+                    binding.UpdateSource();
+                }
             }
-        }
 
-        private void TimeEntriesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+            var currentItem = TimeEntriesDataGrid.SelectedItem as TimeEntry;
+            
             //Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.SelectedItem;
+            timeEntryViewModel.updateData(currentItem.Id);
             //MessageBox.Show($"{currentRowIndex.Description}");
         }
+
+        //private void TimeEntriesDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        //{
+        //    if (e.EditAction == DataGridEditAction.Commit)
+        //    {
+        //        TimeEntriesDataGrid.CommitEdit(DataGridEditingUnit.Row, true);
+        //        Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.SelectedItem;
+        //        MessageBox.Show($"{currentRowIndex.Description}");
+        //    }
+
+        //}
+
     }
 }

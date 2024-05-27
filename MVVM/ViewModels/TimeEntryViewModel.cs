@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using ProjectTimeTracking.Models;
 using ProjectTimeTracking.Context;
+using System.Windows;
 
 namespace ProjectTimeTracking.ViewModels
 {
@@ -19,11 +20,14 @@ namespace ProjectTimeTracking.ViewModels
         public void loadData()
         {
             List<TimeEntry> timeEntries = db.TimeEntries.ToList();
-            //foreach (var timeEntry in timeEntries)
-            //{
-            //    Console.WriteLine(timeEntry.ShortTitle);
-            //}
             TimeEntries = new ObservableCollection<TimeEntry>(timeEntries);
+        }
+
+        public void updateData(int ItemId) {
+            TimeEntry updatedTimeEntry = TimeEntries.Where(X => X.Id == ItemId).FirstOrDefault();
+            db.TimeEntries.Update(updatedTimeEntry);
+            db.SaveChanges();
+            //MessageBox.Show($"{q.Description}");
         }
     }
 }
