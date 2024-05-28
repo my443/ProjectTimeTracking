@@ -29,5 +29,17 @@ namespace ProjectTimeTracking.ViewModels
             db.SaveChanges();
             //MessageBox.Show($"{q.Description}");
         }
+
+        public TimeEntry createRow()
+        {
+            TimeEntry row = new TimeEntry();
+            row.ShortTitle = string.Empty;
+            row.StartTime = TimeOnly.FromDateTime(DateTime.Now);
+            row.DateWorked = DateOnly.FromDateTime(DateTime.Now);
+            db.TimeEntries.Add(row);
+            db.SaveChanges();
+
+            return row;
+        }
     }
 }

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid x:Name="TimeEntriesDataGrid" ItemsSource="{Binding TimeEntries}"  AutoGenerateColumns="False" CellEditEnding="TimeEntriesDataGrid_CellEditEnding">
+        <DataGrid x:Name="TimeEntriesDataGrid" ItemsSource="{Binding TimeEntries}"  AutoGenerateColumns="False" CellEditEnding="TimeEntriesDataGrid_CellEditEnding" AddingNewItem="TimeEntriesDataGrid_AddingNewItem">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
                 <DataGridTextColumn Header="Short Title" Binding="{Binding ShortTitle}" Width="3*"/>

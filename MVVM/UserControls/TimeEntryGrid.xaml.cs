@@ -2,6 +2,7 @@
 using ProjectTimeTracking.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,13 @@ namespace ProjectTimeTracking.UserControls
             //Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.SelectedItem;
             timeEntryViewModel.updateData(currentItem.Id);
             //MessageBox.Show($"{currentRowIndex.Description}");
+        }
+
+        private void TimeEntriesDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            //timeEntryViewModel.createRow();
+            e.NewItem = timeEntryViewModel.createRow();
+
         }
 
         //private void TimeEntriesDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
