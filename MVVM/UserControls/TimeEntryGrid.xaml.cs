@@ -23,39 +23,55 @@ namespace ProjectTimeTracking.UserControls
     /// </summary>
     public partial class TimeEntryGrid : UserControl
     {
-        TimeEntryViewModel timeEntryViewModel;
+        public TimeEntryViewModel timeEntryViewModel;
+        
         public TimeEntryGrid()
         {
             InitializeComponent();
-            timeEntryViewModel = new TimeEntryViewModel();
-            TimeEntriesDataGrid.ItemsSource = timeEntryViewModel.TimeEntries;
+            DataContextChanged += TimeEntryGrid_DataContextChanged;
+            //timeEntryViewModel = new TimeEntryViewModel();
+            //TimeEntryDataGrid.ItemsSource = timeEntryViewModel.TimeEntries;
+        }
+
+        private void TimeEntryGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            timeEntryViewModel = DataContext as TimeEntryViewModel;
         }
 
         private void TimeEntriesDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            if (e.EditAction == DataGridEditAction.Commit)
-            {
-                // Force update to ensure property change notification
-                var binding = e.EditingElement.GetBindingExpression(TextBox.TextProperty);
-                if (binding != null)
-                {
-                    binding.UpdateSource();
-                }
-            }
-
-            var currentItem = TimeEntriesDataGrid.SelectedItem as TimeEntry;
-            
-            //Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.SelectedItem;
-            timeEntryViewModel.updateData(currentItem.Id);
-            //MessageBox.Show($"{currentRowIndex.Description}");
+            timeEntryViewModel?.HandleCellEditEnding(e);
         }
 
         private void TimeEntriesDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
-            //timeEntryViewModel.createRow();
-            e.NewItem = timeEntryViewModel.createRow();
-
+            timeEntryViewModel?.HandleAddingNewItem(e);
         }
+        //private void TimeEntriesDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        //{
+        //    if (e.EditAction == DataGridEditAction.Commit)
+        //    {
+        //        // Force update to ensure property change notification
+        //        var binding = e.EditingElement.GetBindingExpression(TextBox.TextProperty);
+        //        if (binding != null)
+        //        {
+        //            binding.UpdateSource();
+        //        }
+        //    }
+
+        //    var currentItem = TimeEntryDataGrid.SelectedItem as TimeEntry;
+            
+        //    //Models.TimeEntry currentRowIndex = (Models.TimeEntry)TimeEntriesDataGrid.SelectedItem;
+        //    timeEntryViewModel.updateData(currentItem.Id);
+        //    //MessageBox.Show($"{currentRowIndex.Description}");
+        //}
+
+        //private void TimeEntriesDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        //{
+        //    //timeEntryViewModel.createRow();
+        //    e.NewItem = timeEntryViewModel.createRow();
+
+        //}
 
         //private void TimeEntriesDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         //{

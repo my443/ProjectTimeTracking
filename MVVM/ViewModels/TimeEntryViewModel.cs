@@ -2,19 +2,30 @@
 using ProjectTimeTracking.Models;
 using ProjectTimeTracking.Context;
 using System.Windows;
+using ProjectTimeTracking.UserControls;
+using System.Windows.Controls;
 
 namespace ProjectTimeTracking.ViewModels
 {
     public class TimeEntryViewModel: TimeEntryViewModelBase
     {
         WorkContext db = new WorkContext();
-        public ObservableCollection<TimeEntry> TimeEntries;
+        private ObservableCollection<TimeEntry> timeEntries;
 
+        public ObservableCollection<TimeEntry> TimeEntries
+        {
+            get => timeEntries;
+            set
+            {
+                timeEntries = value;
+                OnPropertyChanged(nameof(TimeEntries));
+            }
+        }
 
         public TimeEntryViewModel()
         {
             TimeEntries = new ObservableCollection<TimeEntry>();
-            loadData();            
+            loadData();
         }
 
         public void loadData()
@@ -23,14 +34,14 @@ namespace ProjectTimeTracking.ViewModels
             TimeEntries = new ObservableCollection<TimeEntry>(timeEntries);
         }
 
-        public void updateData(int ItemId) {
+        public void UpdateData(int ItemId) {
             TimeEntry updatedTimeEntry = TimeEntries.Where(X => X.Id == ItemId).FirstOrDefault();
             db.TimeEntries.Update(updatedTimeEntry);
             db.SaveChanges();
             //MessageBox.Show($"{q.Description}");
         }
 
-        public TimeEntry createRow()
+        public TimeEntry CreateRow()
         {
             TimeEntry row = new TimeEntry();
             row.ShortTitle = string.Empty;
@@ -40,6 +51,33 @@ namespace ProjectTimeTracking.ViewModels
             db.SaveChanges();
 
             return row;
+        }
+
+        public string CurrentRow {
+            get { return "100";  }
+             }
+
+        public void HandleAddingNewItem(AddingNewItemEventArgs e)
+        {
+            e.NewItem = CreateRow();
+        }
+
+        public void HandleCellEditEnding(DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                var binding = e.EditingElement.GetBindingExpression(TextBox.TextProperty);
+                if (binding != null)
+                {
+                    binding.UpdateSource();
+                }
+            }
+
+            var currentItem = e.Row.Item as TimeEntry;
+            if (currentItem != null)
+            {
+                UpdateData(currentItem.Id);
+            }
         }
     }
 }

@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTimeTracking"
         xmlns:controls="clr-namespace:ProjectTimeTracking.UserControls"
+        xmlns:viewmodels="clr-namespace:ProjectTimeTracking.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" FontSize="20">
+    <Window.DataContext>
+        <viewmodels:TimeEntryViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,10 +22,12 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        
+
         <controls:Menu Grid.Row="0" Grid.ColumnSpan="2"/>
         <controls:MenuButtonStrip Grid.Row="1" Grid.ColumnSpan="2"/>
-        <controls:TimeEntryGrid Grid.Row="2" Grid.ColumnSpan="2"/>
+        <controls:TimeEntryGrid 
+            Grid.Row="2" 
+            Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>

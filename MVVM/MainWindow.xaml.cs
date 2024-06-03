@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using ProjectTimeTracking.UserControls;
 using ProjectTimeTracking.ViewModels;
 
 namespace ProjectTimeTracking
@@ -12,6 +13,10 @@ namespace ProjectTimeTracking
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new TimeEntryViewModel();
         }
+
+
+
     }
 }
