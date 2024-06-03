@@ -10,15 +10,20 @@ namespace ProjectTimeTracking.UserControls
     /// </summary>
     public partial class MenuButtonStrip : UserControl
     {
+        public TimeEntryViewModel timeEntryViewModel;
         public MenuButtonStrip()
         {
             InitializeComponent();
+            DataContextChanged += TimeEntryGrid_DataContextChanged;
         }
 
+        private void TimeEntryGrid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            timeEntryViewModel = DataContext as TimeEntryViewModel;
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            MessageBox.Show(sender.ToString());
+            timeEntryViewModel.DeleteSelectingItem();
         }
 
     }

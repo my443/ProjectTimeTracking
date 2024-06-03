@@ -1,16 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 using ProjectTimeTracking.Models;
 using ProjectTimeTracking.Context;
-using System.Windows;
-using ProjectTimeTracking.UserControls;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace ProjectTimeTracking.ViewModels
 {
-    public class TimeEntryViewModel: TimeEntryViewModelBase
+    public class TimeEntryViewModel : TimeEntryViewModelBase
     {
         WorkContext db = new WorkContext();
         private ObservableCollection<TimeEntry> timeEntries;
+        private TimeEntry selectedTimeEntry;
 
         public ObservableCollection<TimeEntry> TimeEntries
         {
@@ -19,6 +19,16 @@ namespace ProjectTimeTracking.ViewModels
             {
                 timeEntries = value;
                 OnPropertyChanged(nameof(TimeEntries));
+            }
+        }
+
+        public TimeEntry SelectedTimeEntry
+        {
+            get => selectedTimeEntry;
+            set
+            {
+                selectedTimeEntry = value;
+                OnPropertyChanged(nameof(SelectedTimeEntry));
             }
         }
 
@@ -34,11 +44,11 @@ namespace ProjectTimeTracking.ViewModels
             TimeEntries = new ObservableCollection<TimeEntry>(timeEntries);
         }
 
-        public void UpdateData(int ItemId) {
+        public void UpdateData(int ItemId)
+        {
             TimeEntry updatedTimeEntry = TimeEntries.Where(X => X.Id == ItemId).FirstOrDefault();
             db.TimeEntries.Update(updatedTimeEntry);
             db.SaveChanges();
-            //MessageBox.Show($"{q.Description}");
         }
 
         public TimeEntry CreateRow()
@@ -52,10 +62,6 @@ namespace ProjectTimeTracking.ViewModels
 
             return row;
         }
-
-        public string CurrentRow {
-            get { return "100";  }
-             }
 
         public void HandleAddingNewItem(AddingNewItemEventArgs e)
         {
@@ -77,6 +83,17 @@ namespace ProjectTimeTracking.ViewModels
             if (currentItem != null)
             {
                 UpdateData(currentItem.Id);
+            }
+        }
+
+        internal void DeleteSelectingItem()
+        {
+            if (selectedTimeEntry != null)
+            {
+                //MessageBox.Show($"{selectedTimeEntry.Id}");
+                db.TimeEntries.Remove(selectedTimeEntry);
+                db.SaveChanges();
+                loadData();
             }
         }
     }
