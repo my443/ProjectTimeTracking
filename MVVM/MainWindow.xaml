@@ -27,7 +27,7 @@
         <controls:MenuButtonStrip Grid.Row="1" Grid.ColumnSpan="2"/>
         <controls:TimeEntryGrid 
             Grid.Row="2" 
-            Grid.ColumnSpan="2"/>
+            Grid.ColumnSpan="2" Visibility="{Binding DataGridVisibility}"/>
 
     </Grid>
 </Window>

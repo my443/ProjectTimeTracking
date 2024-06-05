@@ -8,10 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     
     <StackPanel Orientation="Horizontal">
-        <Button Margin="5">
+        <Button Margin="5" Click="New_Button_Click">
             <TextBlock Margin="5">New Item</TextBlock>
         </Button>
-        <Button x:Name="DeleteButton" Margin="5" Click="Button_Click"
+        <Button x:Name="DeleteButton" Margin="5" Click="Delete_Button_Click"
                 CommandParameter="{Binding CurrentRow}">
             <TextBlock  Margin="5">Delete Item</TextBlock>
         </Button>

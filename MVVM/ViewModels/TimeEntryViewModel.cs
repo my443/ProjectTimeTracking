@@ -68,6 +68,13 @@ namespace ProjectTimeTracking.ViewModels
             e.NewItem = CreateRow();
         }
 
+        public void HandleAddingNewItemFromAddButton(RoutedEventArgs e)
+        {
+            var newpage = new Pages.TimeEntryPage();
+
+            newpage.Show();
+            MessageBox.Show("new item");
+        }
         public void HandleCellEditEnding(DataGridCellEditEndingEventArgs e)
         {
             if (e.EditAction == DataGridEditAction.Commit)
@@ -90,11 +97,12 @@ namespace ProjectTimeTracking.ViewModels
         {
             if (selectedTimeEntry != null)
             {
-                //MessageBox.Show($"{selectedTimeEntry.Id}");
                 db.TimeEntries.Remove(selectedTimeEntry);
                 db.SaveChanges();
                 loadData();
             }
         }
+
+
     }
 }

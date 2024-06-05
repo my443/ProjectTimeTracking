@@ -21,10 +21,14 @@ namespace ProjectTimeTracking.UserControls
         {
             timeEntryViewModel = DataContext as TimeEntryViewModel;
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
             timeEntryViewModel.DeleteSelectingItem();
         }
 
+        private void New_Button_Click(object sender, RoutedEventArgs e)
+        {
+            timeEntryViewModel.HandleAddingNewItemFromAddButton(e);
+        }
     }
 }
