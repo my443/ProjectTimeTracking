@@ -11,6 +11,7 @@ namespace ProjectTimeTracking.ViewModels
         WorkContext db = new WorkContext();
         private ObservableCollection<TimeEntry> timeEntries;
         private TimeEntry selectedTimeEntry;
+        private Visibility dataGridVisibility = Visibility.Visible;
 
         public ObservableCollection<TimeEntry> TimeEntries
         {
@@ -30,6 +31,16 @@ namespace ProjectTimeTracking.ViewModels
                 selectedTimeEntry = value;
                 OnPropertyChanged(nameof(SelectedTimeEntry));
             }
+        }
+
+        public Visibility DataGridVisibility {
+            get => dataGridVisibility;
+            set
+            {
+                dataGridVisibility = Visibility.Hidden;
+                OnPropertyChanged(nameof(DataGridVisibility));
+            }
+
         }
 
         public TimeEntryViewModel()
@@ -70,9 +81,10 @@ namespace ProjectTimeTracking.ViewModels
 
         public void HandleAddingNewItemFromAddButton(RoutedEventArgs e)
         {
-            var newpage = new Pages.TimeEntryPage();
+            //var newpage = new Pages.TimeEntryPage();
 
-            newpage.Show();
+            //newpage.Show();
+            DataGridVisibility = Visibility.Visible;
             MessageBox.Show("new item");
         }
         public void HandleCellEditEnding(DataGridCellEditEndingEventArgs e)

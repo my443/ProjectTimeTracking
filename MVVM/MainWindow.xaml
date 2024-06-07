@@ -26,6 +26,7 @@
         <controls:Menu Grid.Row="0" Grid.ColumnSpan="2"/>
         <controls:MenuButtonStrip Grid.Row="1" Grid.ColumnSpan="2"/>
         <controls:TimeEntryGrid 
+            x:Name="TimeEntryGridControl"
             Grid.Row="2" 
             Grid.ColumnSpan="2" Visibility="{Binding DataGridVisibility}"/>
 
